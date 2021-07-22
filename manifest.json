@@ -1,0 +1,77 @@
+{
+  "id": "plugin-exasol",
+  "displayName": "Exasol",
+  "description": "Publisher which connects to Exasol",
+  "apiVersion": "2",
+  "versionDescription": "Version 2",
+  "version": "1.1.2",
+  "iconFile": "icon.png",
+  "executable": "PluginExasol",
+  "kind": "publisher",
+  "os": "$GOOS",
+  "arch": "$GOARCH",
+  "accessGroups": [],
+  "canConfigure": true,
+  "canProduceMultipleSchemas": true,
+  "canAcceptQueryBasedSchemas": true,
+  "canUseOAuth": false,
+  "canConfigureWrite": false,
+  "canWrite": false,
+  "canConfigureReplication": true,
+  "canWriteReplication": true,
+  "querySchema": {
+    "ui": {
+      "ui:widget": "code",
+      "ui:options": {
+        "language": "sql"
+      }
+    },
+    "schema": {
+      "type": "string"
+    }
+  },
+  "configSchema": {
+    "ui": {
+      "ui:order": [
+        "Hostname",
+        "Port",
+        "Username",
+        "Password"
+      ],
+      "Password": {
+        "ui:widget": "password"
+      }
+    },
+    "schema": {
+      "type": "object",
+      "properties": {
+        "Hostname" : {
+          "type": "string",
+          "title": "Hostname",
+          "description": "The hostname of the Exasol Server"
+        },
+        "Port": {
+          "type": "string",
+          "title": "Port",
+          "description": "The port of the Exasol Server (default: 8563)"
+        },
+        "Username": {
+          "type": "string",
+          "title": "Username",
+          "description": "The username to use for authentication"
+        },
+        "Password": {
+          "type": "string",
+          "title": "Password",
+          "description": "The password to use for authentication"
+        }
+      },
+      "required": [
+        "Hostname",
+        "Port",
+        "Username",
+        "Password"
+      ]
+    }
+  }
+}
