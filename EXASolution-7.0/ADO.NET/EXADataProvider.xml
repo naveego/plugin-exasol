@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dtm:ProviderDescriptors 
+  xmlns:dtm="http://www.microsoft.com/SqlServer/Dts/ProviderDescriptors.xsd" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <dtm:ProviderDescriptor	SourceType="Exasol.EXADataProvider.EXAConnection">
+		
+		<dtm:SchemaNames
+			TablesSchemaName="Tables"
+			ColumnsSchemaName="Columns" 
+			ViewsSchemaName="Views" 
+		/>
+
+		<dtm:TableSchemaAttributes
+			TableCatalogColumnName="TABLE_CATALOG"
+			TableSchemaColumnName="TABLE_SCHEMA"
+			TableNameColumnName="TABLE_NAME"
+			TableTypeColumnName="TABLE_TYPE"
+			TableDescriptor="TABLE"
+			ViewDescriptor="VIEW"
+			SynonymDescriptor="SYNONYM"
+			NumberOfTableRestrictions="4"
+		/>
+
+		<dtm:ColumnSchemaAttributes
+			NameColumnName = "COLUMN_NAME"
+			OrdinalPositionColumnName="ORDINAL_POSITION"
+			DataTypeColumnName = "COLUMN_DATA_TYPE"
+			MaximumLengthColumnName = "COLUMN_SIZE"
+			NumericPrecisionColumnName = "NUMERIC_PRECISION"
+			NumericScaleColumnName = "NUMERIC_SCALE"
+			NullableColumnName="IS_NULLABLE"
+			DateTimePrecisionColumnName="DATETIME_PRECISION" 
+			NumberOfColumnRestrictions="4"
+		/>
+
+		<dtm:Literals
+			PrefixQualifier="&quot;"
+			SuffixQualifier="&quot;"
+			CatalogSeparator="."
+			SchemaSeparator="."
+		/>
+	</dtm:ProviderDescriptor>
+</dtm:ProviderDescriptors>
