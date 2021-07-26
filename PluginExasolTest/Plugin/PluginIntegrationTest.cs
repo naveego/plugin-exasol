@@ -18,6 +18,10 @@ namespace PluginExasolTest.Plugin
         {
             return new Settings
             {
+                Hostname = "",
+                Port = "",
+                Username = "",
+                Password = "",
             };
         }
 
@@ -58,7 +62,7 @@ namespace PluginExasolTest.Plugin
                 }
             };
         }
-        
+
         private Schema GetTestReplicationSchema(string id = "test", string name = "test", string query = "")
         {
             return new Schema
@@ -210,8 +214,8 @@ namespace PluginExasolTest.Plugin
             // assert
             Assert.IsType<DiscoverSchemasResponse>(response);
             Assert.Equal(5, response.Schemas.Count);
-            
-            
+
+
             var schema = response.Schemas[0];
             Assert.Equal("\"FLIGHTS\".\"AIRLINE\"", schema.Id);
             Assert.Equal("\"FLIGHTS\".\"AIRLINE\"", schema.Name);
@@ -399,14 +403,17 @@ namespace PluginExasolTest.Plugin
             var channel = new Channel($"localhost:{port}", ChannelCredentials.Insecure);
             var client = new Publisher.PublisherClient(channel);
 
-            var schema = GetTestSchema("FLIGHTS.AIRLINE", "FLIGHTS.AIRLINE");
-
             var connectRequest = GetConnectSettings();
 
             var schemaRequest = new DiscoverSchemasRequest
             {
+                Mode = DiscoverSchemasRequest.Types.Mode.All,
+            };
+            
+            var schemaRequest2 = new DiscoverSchemasRequest
+            {
                 Mode = DiscoverSchemasRequest.Types.Mode.Refresh,
-                ToRefresh = {schema}
+                ToRefresh = { }
             };
 
             var request = new ReadRequest()
@@ -421,7 +428,10 @@ namespace PluginExasolTest.Plugin
             // act
             client.Connect(connectRequest);
             var schemasResponse = client.DiscoverSchemas(schemaRequest);
-            request.Schema = schemasResponse.Schemas[0];
+            schemaRequest2.ToRefresh.Add(schemasResponse.Schemas[0]);
+            var schemasResponse2 = client.DiscoverSchemas(schemaRequest2);
+            
+            request.Schema = schemasResponse2.Schemas[0];
 
             var response = client.ReadStream(request);
             var responseStream = response.ResponseStream;
@@ -436,8 +446,8 @@ namespace PluginExasolTest.Plugin
             Assert.Equal(1623, records.Count);
 
             var record = JsonConvert.DeserializeObject<Dictionary<string, object>>(records[0].DataJson);
-            Assert.Equal("19031", record["\"AIRLINE_ID\""]);
-            Assert.Equal("Mackey International Inc.: MAC", record["\"AIRLINE_NAME\""]);
+            Assert.Equal("19031", record["AIRLINE_ID"]);
+            Assert.Equal("Mackey International Inc.: MAC", record["AIRLINE_NAME"]);
 
             // cleanup
             await channel.ShutdownAsync();
@@ -562,6 +572,7 @@ namespace PluginExasolTest.Plugin
             await channel.ShutdownAsync();
             await server.ShutdownAsync();
         }
+
         [Fact]
         public async Task ReadStreamTest()
         {
