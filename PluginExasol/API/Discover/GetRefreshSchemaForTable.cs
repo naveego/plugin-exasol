@@ -42,7 +42,7 @@ namespace PluginExasol.API.Discover
                 await conn.OpenAsync();
 
                 var cmd = connFactory.GetCommand(
-                    string.Format(GetTableAndColumnsQuery, decomposed.Schema, decomposed.Table), conn);
+                    string.Format(GetTableAndColumnsQuery, decomposed.Schema.Trim('\''), decomposed.Table.Trim('\'')), conn);
                 var reader = await cmd.ExecuteReaderAsync();
                 var refreshProperties = new List<Property>();
 
@@ -53,7 +53,7 @@ namespace PluginExasol.API.Discover
                     {
                         Id = Utility.Utility.GetSafeName(reader.GetValueById(ColumnName).ToString(), '"'),
                         Name = reader.GetValueById(ColumnName).ToString(),
-                        IsKey = reader.GetValueById(ColumnKey).ToString() == "PRI",
+                        IsKey = reader.GetValueById(ColumnKey)?.ToString() == "PRIMARY KEY",
                         IsNullable = reader.GetValueById(IsNullable).ToString() == "YES",
                         Type = GetType(reader.GetValueById(DataType).ToString()),
                         TypeAtSource = GetTypeAtSource(reader.GetValueById(DataType).ToString(),

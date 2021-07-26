@@ -83,7 +83,7 @@ namespace PluginExasol.API.Discover
                             DataFlowDirection = Schema.Types.DataFlowDirection.Read
                         };
                     }
-
+            
                     // add column to schema
                     var property = new Property
                     {

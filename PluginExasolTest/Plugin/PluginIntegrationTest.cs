@@ -460,7 +460,7 @@ namespace PluginExasolTest.Plugin
             var channel = new Channel($"localhost:{port}", ChannelCredentials.Insecure);
             var client = new Publisher.PublisherClient(channel);
 
-            var schema = GetTestSchema("FLIGHTS", "AIRLINE", $"SELECT * FROM FLIGHTS.AIRLINE");
+            var schema = GetTestSchema("\'FLIGHTS\'.\'AIRLINE\'", "FLIGHTS.AIRLINE", $"SELECT * FROM FLIGHTS.AIRLINE");
 
             var connectRequest = GetConnectSettings();
 

@@ -18,25 +18,27 @@ namespace PluginExasol.API.Discover
             try
             {
                 await conn.OpenAsync();
-
+                
                 foreach (var schema in refreshSchemas)
                 {
+                    
                     if (string.IsNullOrWhiteSpace(schema.Query))
                     {
                         yield return await GetRefreshSchemaForTable(connFactory, schema, sampleSize);
                         continue;
                     }
 
+                    
                     var cmd = connFactory.GetCommand(schema.Query, conn);
-
+                    
                     var reader = await cmd.ExecuteReaderAsync();
                     var schemaTable = reader.GetSchemaTable();
-
+                    
                     var properties = new List<Property>();
                     if (schemaTable != null)
                     {
                         var unnamedColIndex = 0;
-
+                    
                         // get each column and create a property for the column
                         foreach (DataRow row in schemaTable.Rows)
                         {
@@ -47,7 +49,6 @@ namespace PluginExasol.API.Discover
                                 colName = $"UNKNOWN_{unnamedColIndex}";
                                 unnamedColIndex++;
                             }
-
                             // create property
                             var property = new Property
                             {
@@ -55,23 +56,23 @@ namespace PluginExasol.API.Discover
                                 Name = colName,
                                 Description = "",
                                 Type = GetPropertyType(row),
-                                // TypeAtSource = row["DataType"].ToString(),
+                                TypeAtSource = row["DataType"].ToString(),
                                 IsKey = Boolean.Parse(row["IsKey"].ToString()),
                                 IsNullable = Boolean.Parse(row["AllowDBNull"].ToString()),
                                 IsCreateCounter = false,
                                 IsUpdateCounter = false,
                                 PublisherMetaJson = ""
                             };
-
+                    
                             // add property to properties
                             properties.Add(property);
                         }
                     }
-
+                    
                     // add only discovered properties to schema
                     schema.Properties.Clear();
                     schema.Properties.AddRange(properties);
-
+                    
                     // get sample and count
                     yield return await AddSampleAndCount(connFactory, schema, sampleSize);
                 }
