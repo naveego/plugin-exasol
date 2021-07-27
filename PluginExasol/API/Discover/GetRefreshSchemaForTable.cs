@@ -42,7 +42,7 @@ namespace PluginExasol.API.Discover
                 await conn.OpenAsync();
 
                 var cmd = connFactory.GetCommand(
-                    string.Format(GetTableAndColumnsQuery, decomposed.Schema.Trim('\''), decomposed.Table.Trim('\'')), conn);
+                    string.Format(GetTableAndColumnsQuery, decomposed.Schema.Trim('\"'), decomposed.Table.Trim('\"')), conn);
                 var reader = await cmd.ExecuteReaderAsync();
                 var refreshProperties = new List<Property>();
 

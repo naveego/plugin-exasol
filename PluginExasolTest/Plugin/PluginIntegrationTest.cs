@@ -21,7 +21,7 @@ namespace PluginExasolTest.Plugin
                 Hostname = "",
                 Port = "",
                 Username = "",
-                Password = "",
+                Password = ""
             };
         }
 
@@ -446,8 +446,8 @@ namespace PluginExasolTest.Plugin
             Assert.Equal(1623, records.Count);
 
             var record = JsonConvert.DeserializeObject<Dictionary<string, object>>(records[0].DataJson);
-            Assert.Equal("19031", record["AIRLINE_ID"]);
-            Assert.Equal("Mackey International Inc.: MAC", record["AIRLINE_NAME"]);
+            Assert.Equal("19031", record["\"AIRLINE_ID\""]);
+            Assert.Equal("Mackey International Inc.: MAC", record["\"AIRLINE_NAME\""]);
 
             // cleanup
             await channel.ShutdownAsync();

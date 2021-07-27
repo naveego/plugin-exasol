@@ -101,14 +101,15 @@ namespace PluginExasol.API.Discover
                 if (schema != null)
                 {
                     // get sample and count
-                    if (sampleSize > 0)
-                    {
-                        yield return await AddSampleAndCount(connFactory, schema, sampleSize);
-                    }
-                    else
-                    {
-                        yield return schema;
-                    }
+                    yield return await AddSampleAndCount(connFactory, schema, sampleSize);
+                    // if (sampleSize > 0)
+                    // {
+                    //     yield return await AddSampleAndCount(connFactory, schema, sampleSize);
+                    // }
+                    // else
+                    // {
+                    //     yield return schema;
+                    // }
                 }
             }
             finally
