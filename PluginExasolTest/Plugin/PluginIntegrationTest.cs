@@ -213,7 +213,7 @@ namespace PluginExasolTest.Plugin
 
             // assert
             Assert.IsType<DiscoverSchemasResponse>(response);
-            Assert.Equal(5, response.Schemas.Count);
+            Assert.Equal(6, response.Schemas.Count);
 
 
             var schema = response.Schemas[0];
@@ -223,7 +223,7 @@ namespace PluginExasolTest.Plugin
             Assert.Equal(10, schema.Sample.Count);
             Assert.Equal(2, schema.Properties.Count);
 
-            var property = schema.Properties[1];
+            var property = schema.Properties[0];
             Assert.Equal("AIRLINE_NAME", property.Id);
             Assert.Equal("AIRLINE_NAME", property.Name);
             Assert.Equal("", property.Description);
@@ -277,11 +277,11 @@ namespace PluginExasolTest.Plugin
             Assert.Equal(2, schema.Properties.Count);
 
             var property = schema.Properties[0];
-            Assert.Equal("\"AIRLINE_NAME\"", property.Id);
-            Assert.Equal("AIRLINE_NAME", property.Name);
+            Assert.Equal("AIRLINE_ID", property.Id);
+            Assert.Equal("AIRLINE_ID", property.Name);
             Assert.Equal("", property.Description);
-            Assert.Equal(PropertyType.String, property.Type);
-            Assert.False(property.IsKey);
+            Assert.Equal(PropertyType.Decimal, property.Type);
+            Assert.True(property.IsKey);
             Assert.False(property.IsNullable);
 
             // cleanup
@@ -330,7 +330,7 @@ namespace PluginExasolTest.Plugin
             Assert.Equal(2, schema.Properties.Count);
 
             var property = schema.Properties[0];
-            Assert.Equal("\"AIRLINE_ID\"", property.Id);
+            Assert.Equal("AIRLINE_ID", property.Id);
             Assert.Equal("AIRLINE_ID", property.Name);
             Assert.Equal("", property.Description);
             Assert.Equal(PropertyType.String, property.Type);
@@ -446,8 +446,8 @@ namespace PluginExasolTest.Plugin
             Assert.Equal(1623, records.Count);
 
             var record = JsonConvert.DeserializeObject<Dictionary<string, object>>(records[0].DataJson);
-            Assert.Equal("19031", record["\"AIRLINE_ID\""]);
-            Assert.Equal("Mackey International Inc.: MAC", record["\"AIRLINE_NAME\""]);
+            Assert.Equal("19031", record["AIRLINE_ID"]);
+            Assert.Equal("Mackey International Inc.: MAC", record["AIRLINE_NAME"]);
 
             // cleanup
             await channel.ShutdownAsync();
@@ -470,7 +470,7 @@ namespace PluginExasolTest.Plugin
             var channel = new Channel($"localhost:{port}", ChannelCredentials.Insecure);
             var client = new Publisher.PublisherClient(channel);
 
-            var schema = GetTestSchema("\'FLIGHTS\'.\'AIRLINE\'", "FLIGHTS.AIRLINE", $"SELECT * FROM FLIGHTS.AIRLINE");
+            var schema = GetTestSchema("\"FLIGHTS\".\"AIRLINE\"", "FLIGHTS.AIRLINE", $"SELECT * FROM FLIGHTS.AIRLINE");
 
             var connectRequest = GetConnectSettings();
 
@@ -507,8 +507,8 @@ namespace PluginExasolTest.Plugin
             Assert.Equal(1623, records.Count);
 
             var record = JsonConvert.DeserializeObject<Dictionary<string, object>>(records[0].DataJson);
-            Assert.Equal("19031", record["\"AIRLINE_ID\""]);
-            Assert.Equal("Mackey International Inc.: MAC", record["\"AIRLINE_NAME\""]);
+            Assert.Equal("19031", record["AIRLINE_ID"]);
+            Assert.Equal("Mackey International Inc.: MAC", record["AIRLINE_NAME"]);
 
             // cleanup
             await channel.ShutdownAsync();
@@ -531,7 +531,7 @@ namespace PluginExasolTest.Plugin
             var channel = new Channel($"localhost:{port}", ChannelCredentials.Insecure);
             var client = new Publisher.PublisherClient(channel);
 
-            var schema = GetTestSchema("FLIGHTS", "AIRLINE", $"SELECT * FROM FLIGHTS.AIRLINE");
+            var schema = GetTestSchema("\"FLIGHTS\".\"AIRLINE\"", "FLIGHTS.AIRLINE", $"SELECT * FROM FLIGHTS.AIRLINE");
 
             var connectRequest = GetConnectSettings();
 
@@ -589,7 +589,7 @@ namespace PluginExasolTest.Plugin
             var channel = new Channel($"localhost:{port}", ChannelCredentials.Insecure);
             var client = new Publisher.PublisherClient(channel);
 
-            var schema = GetTestSchema("FLIGHTS", "AIRLINE", $"SELECT * FROM FLIGHTS.AIRLINE");
+            var schema = GetTestSchema("\"FLIGHTS\".\"AIRLINE\"", "FLIGHTS.AIRLINE", $"SELECT * FROM FLIGHTS.AIRLINE");
 
             var connectRequest = GetConnectSettings();
 

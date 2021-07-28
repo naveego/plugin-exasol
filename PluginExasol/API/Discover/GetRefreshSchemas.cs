@@ -52,7 +52,8 @@ namespace PluginExasol.API.Discover
                             // create property
                             var property = new Property
                             {
-                                Id = Utility.Utility.GetSafeName(colName, '"'),
+                                //Id = Utility.Utility.GetSafeName(colName, '"'),
+                                Id = colName,
                                 Name = colName,
                                 Description = "",
                                 Type = GetPropertyType(row),

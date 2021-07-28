@@ -45,13 +45,14 @@ namespace PluginExasol.API.Discover
                     string.Format(GetTableAndColumnsQuery, decomposed.Schema.Trim('\"'), decomposed.Table.Trim('\"')), conn);
                 var reader = await cmd.ExecuteReaderAsync();
                 var refreshProperties = new List<Property>();
-
+                
                 while (await reader.ReadAsync())
                 {
                     // add column to refreshProperties
                     var property = new Property
                     {
-                        Id = Utility.Utility.GetSafeName(reader.GetValueById(ColumnName).ToString(), '"'),
+                        //Id = Utility.Utility.GetSafeName(reader.GetValueById(ColumnName).ToString(), '"'),
+                        Id = $"{reader.GetValueById(ColumnName)}",
                         Name = reader.GetValueById(ColumnName).ToString(),
                         IsKey = reader.GetValueById(ColumnKey)?.ToString() == "PRIMARY KEY",
                         IsNullable = reader.GetValueById(IsNullable).ToString() == "YES",
