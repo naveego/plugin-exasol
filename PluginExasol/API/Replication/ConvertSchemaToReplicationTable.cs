@@ -36,15 +36,15 @@ namespace PluginExasol.API.Replication
             switch (dataType)
             {
                 case PropertyType.Datetime:
-                    return "datetime";
+                    return "varchar(255)";
                 case PropertyType.Date:
-                    return "date";
+                    return "varchar(255)";
                 case PropertyType.Time:
-                    return "timestamp";
+                    return "varchar(255)";
                 case PropertyType.Integer:
                     return "int";
                 case PropertyType.Decimal:
-                    return "decimal(38,18)";
+                    return "decimal(36,18)";
                 case PropertyType.Float:
                     return "double";
                 case PropertyType.Bool:
@@ -52,7 +52,7 @@ namespace PluginExasol.API.Replication
                 case PropertyType.Blob:
                     return "longblob";
                 case PropertyType.String:
-                    return "varchar(255)";
+                    return "varchar(2000000)";
                 case PropertyType.Text:
                     return "varchar(2000000)";
                 default:

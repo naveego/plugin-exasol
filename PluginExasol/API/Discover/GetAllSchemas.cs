@@ -122,7 +122,7 @@ namespace PluginExasol.API.Discover
             int sampleSize)
         {
             // add sample and count
-            var records = Read.Read.ReadRecords(connFactory, schema).Take(10);
+            var records = Read.Read.ReadRecords(connFactory, schema).Take(sampleSize);
             schema.Sample.AddRange(await records.ToListAsync());
             schema.Count = await GetCountOfRecords(connFactory, schema);
 
@@ -146,41 +146,6 @@ namespace PluginExasol.API.Discover
                     return PropertyType.Float;
                 default:
                     return PropertyType.String;
-                
-                // case "datetime":
-                // case "timestamp":
-                //     return PropertyType.Datetime;
-                // case "date":
-                //     return PropertyType.Date;
-                // case "time":
-                //     return PropertyType.Time;
-                // case "tinyint":
-                // case "smallint":
-                // case "mediumint":
-                // case "int":
-                // case "bigint":
-                //     return PropertyType.Integer;
-                // case "decimal":
-                //     return PropertyType.Decimal;
-                // case "float":
-                // case "double":
-                //     return PropertyType.Float;
-                // case "boolean":
-                //     return PropertyType.Bool;
-                // case "blob":
-                // case "mediumblob":
-                // case "longblob":
-                //     return PropertyType.Blob;
-                // case "char":
-                // case "varchar":
-                // case "tinytext":
-                //     return PropertyType.String;
-                // case "text":
-                // case "mediumtext":
-                // case "longtext":
-                //     return PropertyType.Text;
-                // default:
-                //     return PropertyType.String;
             }
         }
 

@@ -709,8 +709,8 @@ namespace PluginExasolTest.Plugin
                     SettingsJson = JsonConvert.SerializeObject(new ConfigureReplicationFormData
                     {
                         SchemaName = "test",
-                        GoldenTableName = "gr_test",
-                        VersionTableName = "vr_test"
+                        GoldenTableName = "gr test table",
+                        VersionTableName = "vr test table"
                     })
                 },
                 DataVersions = new DataVersions

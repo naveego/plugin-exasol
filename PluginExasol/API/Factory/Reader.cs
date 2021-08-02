@@ -1,18 +1,15 @@
 using System.Data;
 using System.Threading.Tasks;
 using Exasol.EXADataProvider;
-using MySqlConnector;
 
 namespace PluginExasol.API.Factory
 {
     public class Reader : IReader
     {
-        // private readonly MySqlDataReader _reader;
         private readonly EXADataReader _reader;
         public Reader(IDataReader reader)
         {
             _reader = (EXADataReader) reader;
-            // _reader = (MySqlDataReader) reader;
         }
 
         public async Task<bool> ReadAsync()

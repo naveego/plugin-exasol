@@ -3,7 +3,6 @@ using System.Data;
 using System.Data.Odbc;
 using System.Data.Common;
 using System.Threading.Tasks;
-using MySqlConnector;
 using PluginExasol.Helper;
 using Exasol.EXADataProvider;
 

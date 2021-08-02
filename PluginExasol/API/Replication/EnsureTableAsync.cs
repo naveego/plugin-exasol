@@ -80,10 +80,6 @@ AND TABLE_NAME = '{1}'";
                     await cmd.ExecuteNonQueryAsync();
                 }
             }
-            catch (Exception e)
-            {
-                var debug = e.Message;
-            }
             finally
             {
                 await conn.CloseAsync();

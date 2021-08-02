@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using Exasol.EXADataProvider;
-using MySqlConnector;
 
 namespace PluginExasol.API.Factory
 {
@@ -12,13 +11,12 @@ namespace PluginExasol.API.Factory
         {
             _cmd = new EXACommand();
         }
-
-        //remove this?
-        // public Command(string commandText)
-        // {
-        //     _cmd = new EXACommand();
-        //     _cmd.CommandText = commandText;
-        // }
+        
+        public Command(string commandText)
+        {
+            _cmd = new EXACommand();
+            _cmd.CommandText = commandText;
+        }
 
         public Command(string commandText, IConnection conn)
         {
