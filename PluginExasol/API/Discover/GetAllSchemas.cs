@@ -90,7 +90,7 @@ namespace PluginExasol.API.Discover
                         Id = $"{reader.GetValueById(ColumnName)}",
                         Name = reader.GetValueById(ColumnName).ToString(),
                         IsKey = reader.GetValueById(ColumnKey)?.ToString() == "PRIMARY KEY",
-                        IsNullable = Boolean.Parse(reader.GetValueById(IsNullable).ToString()),
+                        IsNullable = !Boolean.TryParse(reader.GetValueById(IsNullable).ToString(), out bool nullable) || nullable,
                         Type = GetType(reader.GetValueById(DataType).ToString()),
                         TypeAtSource = GetTypeAtSource(reader.GetValueById(DataType).ToString(),
                             reader.GetValueById(CharacterMaxLength))

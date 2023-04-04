@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -55,7 +56,7 @@ namespace PluginExasol.API.Discover
                         Id = $"{reader.GetValueById(ColumnName)}",
                         Name = reader.GetValueById(ColumnName).ToString(),
                         IsKey = reader.GetValueById(ColumnKey)?.ToString() == "PRIMARY KEY",
-                        IsNullable = reader.GetValueById(IsNullable).ToString() == "YES",
+                        IsNullable = !Boolean.TryParse(reader.GetValueById(IsNullable).ToString(), out bool nullable) || nullable,
                         Type = GetType(reader.GetValueById(DataType).ToString()),
                         TypeAtSource = GetTypeAtSource(reader.GetValueById(DataType).ToString(),
                             reader.GetValueById(CharacterMaxLength))
