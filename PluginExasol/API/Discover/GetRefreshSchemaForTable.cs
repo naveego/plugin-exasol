@@ -52,7 +52,6 @@ namespace PluginExasol.API.Discover
                     // add column to refreshProperties
                     var property = new Property
                     {
-                        //Id = Utility.Utility.GetSafeName(reader.GetValueById(ColumnName).ToString(), '"'),
                         Id = $"{reader.GetValueById(ColumnName)}",
                         Name = reader.GetValueById(ColumnName).ToString(),
                         IsKey = reader.GetValueById(ColumnKey)?.ToString() == "PRIMARY KEY",
