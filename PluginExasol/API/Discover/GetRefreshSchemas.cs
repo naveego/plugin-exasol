@@ -59,7 +59,7 @@ namespace PluginExasol.API.Discover
                                 Type = GetPropertyType(row),
                                 TypeAtSource = row["DataType"].ToString(),
                                 IsKey = Boolean.Parse(row["IsKey"].ToString()),
-                                IsNullable = Boolean.Parse(row["AllowDBNull"].ToString()),
+                                IsNullable = !Boolean.TryParse(row["AllowDBNull"].ToString(), out bool nullable) || nullable,
                                 IsCreateCounter = false,
                                 IsUpdateCounter = false,
                                 PublisherMetaJson = ""

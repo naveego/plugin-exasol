@@ -118,8 +118,8 @@ namespace PluginExasolTest.Helper
             var connDbString = settings.GetConnectionString();
 
             // assert
-            Assert.Equal("Server=123.456.789.0; Port=8563; Database=master; User=username; Password=password;", connString);
-            Assert.Equal("Server=123.456.789.0; Port=8563; Database=otherdb; User=username; Password=password;", connDbString);
+            Assert.Equal("Server=123.456.789.0;Port=8563;UID=username;PWD=password;", connString);
+            Assert.Equal("Server=123.456.789.0;Port=8563;UID=username;PWD=password;", connDbString);
         }
     }
 }
