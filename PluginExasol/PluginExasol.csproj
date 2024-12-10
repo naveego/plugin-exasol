@@ -29,7 +29,7 @@
 
     <ItemGroup>
       <Reference Include="EXADataProvider, Version=5.0.0.0, Culture=neutral, PublicKeyToken=ec874333d1454516">
-        <HintPath>..\..\..\..\Program Files\Exasol\EXASolution-7.0\ADO.NET\EXADataProvider.dll</HintPath>
+        <HintPath>..\lib\EXADataProvider.dll</HintPath>
       </Reference>
     </ItemGroup>
 
