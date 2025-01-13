@@ -43,7 +43,7 @@ namespace PluginExasol.Helper
         /// <returns></returns>
         public string GetConnectionString()
         {
-            return $"Server={Hostname};Port={Port};UID={Username};PWD={Password};";
+            return $"Server={Hostname};Port={Port};UID={Username};PWD={Password};SSLCertificate=VERIFYNONE";
 
         }
         
